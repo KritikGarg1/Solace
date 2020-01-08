@@ -29,7 +29,7 @@ class JobsPage extends StatelessWidget {
                     Spacer(),
                     Container(
                         padding: EdgeInsets.only(top: 13),
-                        child: AutoSizeText(
+                        child: Text(
                           '1031 Franklin Street, San F...',
                           style: TextStyle(color: Colors.white,fontSize: 16),
                         )),
