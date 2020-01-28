@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 
+
+
+
+
 List<Map<String, String>> getCity() {
   var items = [
     {'Code': 'SF', 'Address': '548 market, San Francisco'},
@@ -34,9 +38,9 @@ List<String> offerText() {
 List<Map<String, String>> getOffer() {
   var items = [
     {'Stay': 'One night stay', 'Money': '\$20-30'},
-    {'Stay': 'One night stay', 'Money': '\$20-30'},
-    {'Stay': 'One night stay', 'Money': '\$20-30'},
-    {'Stay': 'One night stay', 'Money': '\$20-30'},
+    {'Stay': 'One night stay', 'Money': '\$50'},
+    {'Stay': 'One night stay', 'Money': '-'},
+    {'Stay': 'One night stay', 'Money': '\$30'},
   ];
   return items;
 }

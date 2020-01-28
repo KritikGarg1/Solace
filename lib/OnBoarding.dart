@@ -2,15 +2,20 @@ import 'package:flutter/material.dart';
 import 'HomePage.dart';
 import 'main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:geolocator/geolocator.dart';
+import 'JobsPage.dart';
+Position position;
 class OnBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+
     return new MaterialApp(theme:ThemeData(accentColor: Colors.deepOrange),home: NewOnBoard());}}
 
 class NewOnBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
 
     AssetImage assetImage1 = AssetImage('assets/vector_intro.jpg');
     AssetImage assetImage2 = AssetImage('assets/get_started_img.jpg');
@@ -46,6 +51,7 @@ class NewOnBoard extends StatelessWidget {
                   padding: EdgeInsets.only(bottom: 10),
                   child: FlatButton(
                       onPressed: () async{
+                        position= await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high); print(position);
                         SharedPreferences prefs = await SharedPreferences.getInstance();
                         onBoard = (prefs.getInt('intro') ?? 0);
                         onBoard=1000;

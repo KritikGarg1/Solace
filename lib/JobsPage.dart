@@ -1,13 +1,54 @@
 import 'package:flutter/material.dart';
 import 'ListItem.dart';
+import 'package:solace/OnBoarding.dart';
+import 'package:geolocator/geolocator.dart';
 
-class JobsPage extends StatelessWidget {
+String currentAddress='St. 53, San Francisco';
+
+
+class JobsPage extends StatefulWidget {
   const JobsPage({Key key}) : super(key: key);
 
-  void func() {}
+  @override
+  _JobsPageState createState() => _JobsPageState();
+}
+
+class _JobsPageState extends State<JobsPage> {
+
+  getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await Geolocator().placemarkFromCoordinates(
+          position.latitude, position.longitude);
+
+      Placemark place = p[0];
+
+      setState(() {
+        currentAddress =
+        "${ place.subLocality}, ${ place.locality}, ${ place.postalCode}, ${ place.country} ";
+      });
+    } catch (e) {
+      print(e);
+    }
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getAddressFromLatLng();
+    super.initState();
+  }
+
+  void func(){}
+
+
 
   @override
   Widget build(BuildContext context) {
+
+    double widths = MediaQuery.of(context).size.width;
+
+
     return new Scaffold(
       body: Column(
         children: <Widget>[
@@ -26,21 +67,23 @@ class JobsPage extends StatelessWidget {
                       ),
                       padding: EdgeInsets.only(left: 15, right: 5, top: 7),
                     ),
-                    Spacer(),
-                    Container(
+
+                    Container(width:widths*0.45,
                         padding: EdgeInsets.only(top: 13),
                         child: Text(
-                          '1031 Franklin Street, San F...',
-                          style: TextStyle(color: Colors.white,fontSize: 16),
+                          currentAddress,
+                          style: TextStyle(color: Colors.white,fontSize: 15),
+                          overflow: TextOverflow.fade,softWrap: false,maxLines: 1,
+
                         )),
-                    Spacer(),
+
                     Container(
                         padding: EdgeInsets.only(right: 15, left: 15, top: 7),
                         child: RaisedButton(
                           onPressed: func,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(5.0)),
-                          padding: EdgeInsets.only(left: 35, right: 35),
+                          padding: EdgeInsets.only(left: widths*0.09, right: widths*0.09),
                           color: Colors.deepOrange,
                           elevation: 10,
                           child: Text(
@@ -56,29 +99,6 @@ class JobsPage extends StatelessWidget {
             ),
           ),
           Expanded(child: listItem(),
-
-            //child: ListView
-//              (
-//              children: <Widget>
-//              [
-//
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//                ListTile(leading: Icon(Icons.map), title: Text('Map')),
-//              ],
-//
-//            ),
           ),
         ],
       ),
